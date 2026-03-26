@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const skills = [
   { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
@@ -34,6 +34,7 @@ const subjects = [
 export default function Skills() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [selected, setSelected] = useState<string | null>(null);
 
   return (
     <section id="skills" className="section-padding">
@@ -47,26 +48,34 @@ export default function Skills() {
         </motion.h2>
 
         <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-3">
-          {skills.map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: i * 0.04, type: "spring", stiffness: 260, damping: 18 }}
-              whileHover={{ scale: 1.15, y: -4 }}
-              className="glass p-2.5 flex flex-col items-center gap-1.5 cursor-pointer group hover:neon-border transition-all duration-300"
-            >
-              <img
-                src={skill.icon}
-                alt={skill.name}
-                className="w-7 h-7 object-contain"
-                loading="lazy"
-              />
-              <span className="text-[10px] font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center leading-tight">
-                {skill.name}
-              </span>
-            </motion.div>
-          ))}
+          {skills.map((skill, i) => {
+            const isActive = selected === skill.name;
+            return (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ delay: i * 0.04, type: "spring", stiffness: 260, damping: 18 }}
+                whileHover={{ scale: 1.15, y: -4 }}
+                onClick={() => setSelected(isActive ? null : skill.name)}
+                className={`glass p-2.5 flex flex-col items-center gap-1.5 cursor-pointer group transition-all duration-300 ${
+                  isActive ? "neon-border glow-box" : "hover:neon-border"
+                }`}
+              >
+                <img
+                  src={skill.icon}
+                  alt={skill.name}
+                  className="w-7 h-7 object-contain"
+                  loading="lazy"
+                />
+                <span className={`text-[10px] font-medium transition-colors text-center leading-tight ${
+                  isActive ? "text-primary font-semibold" : "text-muted-foreground group-hover:text-foreground"
+                }`}>
+                  {skill.name}
+                </span>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Subjects */}

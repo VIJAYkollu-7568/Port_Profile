@@ -2,14 +2,18 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const skills = [
-  { name: "React", level: 90 },
-  { name: "TypeScript", level: 85 },
-  { name: "Python", level: 80 },
-  { name: "Node.js", level: 75 },
-  { name: "Java", level: 70 },
-  { name: "Machine Learning", level: 65 },
-  { name: "Tailwind CSS", level: 90 },
-  { name: "Three.js", level: 60 },
+  { name: "React", icon: "⚛️" },
+  { name: "TypeScript", icon: "🔷" },
+  { name: "Python", icon: "🐍" },
+  { name: "Node.js", icon: "🟢" },
+  { name: "Java", icon: "☕" },
+  { name: "Machine Learning", icon: "🧠" },
+  { name: "Tailwind CSS", icon: "🎨" },
+  { name: "Three.js", icon: "🔺" },
+  { name: "Git", icon: "🔀" },
+  { name: "Docker", icon: "🐳" },
+  { name: "MongoDB", icon: "🍃" },
+  { name: "SQL", icon: "🗄️" },
 ];
 
 export default function Skills() {
@@ -18,7 +22,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section-padding">
-      <div ref={ref} className="max-w-4xl mx-auto">
+      <div ref={ref} className="max-w-5xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -27,27 +31,26 @@ export default function Skills() {
           Skills & Technologies
         </motion.h2>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-5">
           {skills.map((skill, i) => (
             <motion.div
               key={skill.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1 }}
-              className="glass p-4 hover:neon-border transition-all duration-300 group"
+              initial={{ opacity: 0, scale: 0.5, y: 30 }}
+              animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.08, type: "spring", stiffness: 200, damping: 15 }}
+              whileHover={{ scale: 1.12, y: -6 }}
+              className="glass p-5 flex flex-col items-center gap-3 cursor-pointer group hover:neon-border transition-all duration-300"
             >
-              <div className="flex justify-between mb-2">
-                <span className="font-medium text-foreground">{skill.name}</span>
-                <span className="text-sm text-muted-foreground">{skill.level}%</span>
-              </div>
-              <div className="h-2 rounded-full bg-muted overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={inView ? { width: `${skill.level}%` } : {}}
-                  transition={{ duration: 1, delay: 0.3 + i * 0.1, ease: "easeOut" }}
-                  className="h-full rounded-full bg-gradient-to-r from-primary to-secondary"
-                />
-              </div>
+              <motion.span
+                className="text-4xl"
+                animate={inView ? { rotateY: [0, 360] } : {}}
+                transition={{ delay: 0.5 + i * 0.1, duration: 0.8, ease: "easeOut" }}
+              >
+                {skill.icon}
+              </motion.span>
+              <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center">
+                {skill.name}
+              </span>
             </motion.div>
           ))}
         </div>

@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 const links = ["Home", "About", "Skills", "Projects", "Experience", "Contact"];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [dark, setDark] = useState(true);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) {
+      root.classList.remove("light");
+    } else {
+      root.classList.add("light");
+    }
+  }, [dark]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
@@ -23,7 +33,7 @@ export default function Navbar() {
         <span className="font-display text-xl font-bold gradient-text">Portfolio</span>
 
         {/* Desktop */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <button
               key={l}
@@ -34,12 +44,30 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
             </button>
           ))}
+
+          {/* Theme toggle */}
+          <button
+            onClick={() => setDark(!dark)}
+            className="w-9 h-9 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300"
+            aria-label="Toggle theme"
+          >
+            {dark ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile */}
+        <div className="flex items-center gap-3 md:hidden">
+          <button
+            onClick={() => setDark(!dark)}
+            className="w-9 h-9 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300"
+            aria-label="Toggle theme"
+          >
+            {dark ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <button className="text-foreground" onClick={() => setOpen(!open)}>
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

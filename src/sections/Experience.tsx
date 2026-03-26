@@ -22,25 +22,17 @@ export default function Experience() {
           Experience
         </motion.h2>
 
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border" />
-
+        <div className="space-y-8">
           {timeline.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.2, duration: 0.6 }}
-              className={`relative mb-10 pl-12 md:pl-0 md:w-1/2 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:ml-auto md:pl-12"}`}
+              className="relative pl-8 border-l-2 border-border"
             >
-              {/* Dot */}
-              <div className="absolute left-2.5 md:left-auto md:right-auto top-1 w-3 h-3 rounded-full bg-primary glow-box"
-                style={{ [i % 2 === 0 ? "right" : "left"]: window?.innerWidth >= 768 ? "-6px" : undefined,
-                  left: window?.innerWidth < 768 ? "10px" : (i % 2 !== 0 ? "-6px" : undefined) }}
-              />
-
-              <div className="glass p-4">
+              <div className="absolute left-[-7px] top-2 w-3 h-3 rounded-full bg-primary glow-box" />
+              <div className="glass p-5">
                 <span className="text-xs text-primary font-medium">{item.year}</span>
                 <h3 className="text-lg font-display font-semibold text-foreground">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.place}</p>

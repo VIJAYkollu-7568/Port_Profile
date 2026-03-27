@@ -1,8 +1,8 @@
 import { Github, Linkedin, Twitter } from "lucide-react";
 
 const socials = [
-  { icon: Github, href: "#" },
-  { icon: Linkedin, href: "#" },
+  { icon: Github, href: "https://github.com/VIJAYkollu-7568?tab=repositories" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/kollu-vijay/" },
   { icon: Twitter, href: "#" },
 ];
 
@@ -20,7 +20,7 @@ export default function Footer() {
           </a>
         ))}
       </div>
-      <p className="text-sm text-muted-foreground">© 2026 Your Name. All rights reserved.</p>
+      <p className="text-sm text-muted-foreground">© 2026  Vijay Kollu. All rights reserved.</p>
     </footer>
   );
 }

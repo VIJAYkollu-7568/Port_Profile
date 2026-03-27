@@ -15,9 +15,19 @@ export default function About() {
           transition={{ duration: 0.7 }}
           className="relative"
         >
-          <div className="w-64 h-64 mx-auto rounded-2xl bg-muted neon-border flex items-center justify-center text-6xl font-display font-bold text-primary/40">
-            {'</>'}
-          </div>
+          <div className="relative w-full max-w-sm mx-auto">
+  {/* soft glow background */}
+  <div className="absolute inset-0 bg-primary/10 blur-2xl rounded-2xl" />
+
+  <motion.img
+    src="/111.png"
+    alt="About illustration"
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={inView ? { opacity: 1, scale: 1 } : {}}
+    transition={{ duration: 0.7 }}
+    className="relative z-10 rounded-2xl w-full h-auto object-contain"
+  />
+</div>
           <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 blur-xl -z-10" />
         </motion.div>
 
@@ -28,17 +38,18 @@ export default function About() {
         >
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 gradient-text">About Me</h2>
           <p className="text-muted-foreground mb-4 leading-relaxed">
-            I'm a passionate developer who loves building beautiful, performant web applications.
-            With experience across the full stack, I bring ideas to life with clean code and modern design.
+           Computer Science undergraduate at KL University (CGPA: 9.65) with strong experience in Software development and AI Models Development & competitive programming (DSA & Algorithms ). Skilled in building scalable REST APIs, distributed systems, and CI/CD pipelines using Java and Spring Boot. Experienced in Agile environments, delivering reliable and efficient software solutions aligned with industry standards.
+
+Passionate about exploring new technologies and contributing to open-source projects.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             When I'm not coding, you'll find me exploring new technologies and contributing to open source.
           </p>
           <div className="flex gap-8 mt-6">
             {[
-              { n: "3+", l: "Years Exp" },
-              { n: "20+", l: "Projects" },
-              { n: "10+", l: "Technologies" },
+              { n: "2+", l: "Years Exp" },
+              { n: "10+", l: "Projects" },
+              { n: "5+", l: "Technologies" },
             ].map((s) => (
               <div key={s.l} className="text-center">
                 <div className="text-2xl font-bold text-primary">{s.n}</div>
